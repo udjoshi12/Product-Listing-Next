@@ -1,20 +1,18 @@
-"use client";
-export default async function Page({id}){
+import Navigation from "../../components/navigation";
+import ProductCard from "../../components/productCard";
+export default async function Page({params}) {
     try{
-        const res = await fetch(`https://fakestoreapi.com/products/${id}`);
-        if(!res.ok){
-            throw new Error("Failed to fetch data");
-        }
+        const {id} = await params;
+        const res = await fetch(`https://fakestoreapi.com/products/${id}`, {cache: "no-store"});
+        console.log(res);
         const data = await res.json();
-        console.log(data);
-        return <div>
-            <Product product={data} />
-        </div>
-    }
-    catch(error){
+        return <div className="bg-slate-900 h-screen">
+            <Navigation />
+            <ProductCard product={data}/>
+        </div>;
+    }catch(error){
         console.log(error);
+        return <div>Something went wrong</div>;
     }
-    return <div>
-        
-    </div>
+    
 }
