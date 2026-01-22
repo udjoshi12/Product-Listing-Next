@@ -12,7 +12,6 @@ export default async function Page() {
   const data = await res.json();
   const tempData = await resLocal.json();
   tempData.map((item) => data.push(item));
-  console.log("LOCAL DATA", data);
   return (
     <div className="bg-slate-900">
       {/* <Navigation /> */}

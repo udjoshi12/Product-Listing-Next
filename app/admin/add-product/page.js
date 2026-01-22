@@ -7,7 +7,7 @@ export default function AddProduct() {
     id: "",
     title: "",
     description: "",
-    price: 0,
+    price: "",
     category: "",
     image: "",
   });
@@ -41,7 +41,7 @@ export default function AddProduct() {
     if (res.ok) {
       setSuccess(true);
       setFormData({
-        id: null,
+        id: "",
         title: "",
         description: "",
         price: "",
