@@ -3,6 +3,7 @@ import "./globals.css";
 import Navigation from "./components/navigation";
 import Footer from "./components/footer";
 import { CartProvider } from "./contexts/cartContext";
+import ToastProvider from "./components/ToastProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,11 +27,12 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-900/50 h-full`}
       >
         <CartProvider>
-        <Navigation />
+          <ToastProvider />
+          <Navigation />
           <main className="h-screen flex flex-col overflow-auto scroll-smooth">
             {children}
           </main>
-        <Footer />
+          <Footer />
         </CartProvider>
       </body>
     </html>

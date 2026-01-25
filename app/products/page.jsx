@@ -13,22 +13,23 @@ export default async function Page() {
   const allProducts = [...data, ...localData];
 
   return (
-    <div className="relative h-screen w-full">
-      <Image
-        src="/bg-img.png"
-        alt="Background"
-        fill
-        priority
-        className="object-cover"
-      />
+    <>
+      <div className="fixed inset-0 -z-10 pointer-events-none">
+        <Image
+          src="/bg-img.png"
+          alt="Background"
+          fill
+          priority
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/60" />
+      </div>
 
-      <div className="absolute inset-0 bg-black/60" />
-
-      <div className="relative z-10 flex items-center justify-center h-full text-white bg-transparent">
-        <div className="bg-slate-900 h-screen">
+      <div className="relative min-h-screen">
+        <div className="min-h-screen bg-slate-900/40 backdrop-blur-sm">
           <ProductsClient products={allProducts} />
         </div>
       </div>
-    </div>
+    </>
   );
 }

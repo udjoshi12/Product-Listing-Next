@@ -1,5 +1,4 @@
 "use client";
-import { useEffect } from "react";
 import { useCart } from "@/app/contexts/cartContext";
 
 export default function ProductCard({ product }) {
@@ -10,14 +9,10 @@ export default function ProductCard({ product }) {
   }
 
   const { addToCart } = cart;
-  const { items } = cart;
-
-  useEffect(() => {
-    console.log("CART ITEMS:", items);
-  }, [items]);
 
   return (
-    <div className="h-screen flex gap-4 flex-col justify-center items-center w-1/2 p-6 ml-auto mr-auto shadow-lg shadow-slate-700/50 bg-slate-700/50">
+    //max-w-2xl text-center backdrop-blur-md bg-slate-900/40 rounded-2xl p-10 shadow-xl
+    <div className="rounded-2xl flex gap-4 flex-col justify-center items-center w-1/2 p-6 ml-auto mr-auto shadow-lg shadow-slate-700/50 bg-slate-700/50 backdrop-blur-md">
       <img src={product.image} alt="product image" className="h-1/2" />
 
       <p className="text-center font-bold text-base text-slate-100">
@@ -50,11 +45,13 @@ export default function ProductCard({ product }) {
       )}
       <button
         type="button"
-        onClick={() => addToCart(product)}
-        className="bg-slate-800 text-slate-100 px-4 py-2 rounded-full hover:bg-slate-700 transition-colors"
+        onClick={() => {
+          addToCart(product);
+        }}
+        className="mt-2 bg-slate-600 text-slate-100 px-4 py-2 rounded-full hover:bg-slate-500 transition-colors"
       >
         Add to Cart
-      </button> 
+      </button>
     </div>
   );
 }

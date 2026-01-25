@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import toast from "react-hot-toast";
 
 export async function getTillNowProducts() {
   const res = await fetch("http://localhost:3000/api/products");
@@ -62,7 +63,7 @@ export default function AddProduct() {
         image: "",
       });
     }
-
+    toast.success("Product added successfully!");
     setLoading(false);
   }
 
@@ -76,9 +77,9 @@ export default function AddProduct() {
         className="object-cover"
       />
 
-      <div className="absolute inset-0 bg-black/60" />
+      <div className="absolute inset-0 bg-black/30" />
 
-      <div className="relative z-10 flex items-center justify-center h-full text-white bg-slate-900/50">
+      <div className="relative z-10 flex items-center justify-center h-full text-white bg-slate-900/30 backdrop-blur-sm">
         <div className="h-screen flex justify-center items-center bg-transparent ">
           <form
             onSubmit={handleSubmit}
@@ -169,14 +170,7 @@ export default function AddProduct() {
             >
               {loading ? "Adding..." : "Add Product"}
             </button>
-
-            {success && (
-              <p className="text-green-400 text-center ">
-                Product added successfully!
-              </p>
-            )}
           </form>
-          <div></div>
         </div>
       </div>
     </div>

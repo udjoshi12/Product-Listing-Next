@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import SearchBar from "@/app/components/searchBar";
 import CategoryFilter from "@/app/components/categoryFilter";
 import Link from "next/link";
 import Product from "@/app/components/product";
+import toast from "react-hot-toast";
 
 export default function ProductsClient({ products }) {
   const [query, setQuery] = useState("");
@@ -24,7 +25,7 @@ export default function ProductsClient({ products }) {
 
     if (query.trim()) {
       filtered = filtered.filter((item) =>
-        item.title.toLowerCase().includes(query.toLowerCase()),
+        item.title.toLowerCase().includes(query.toLowerCase()) || item.description.toLowerCase().includes(query.toLowerCase()),
       );
     }
 
@@ -34,7 +35,11 @@ export default function ProductsClient({ products }) {
 
     return { filteredProducts: filtered, notFound: false };
   }, [query, selectedCategory, products]);
-
+  useEffect(() => {
+    if (notFound) {
+      toast.error("No products match the search query");
+    }
+  }, [notFound]);
   return (
     <>
       <CategoryFilter
@@ -49,13 +54,13 @@ export default function ProductsClient({ products }) {
             No products match the search query
           </p>
         )}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-4 p-4">
-        {filteredProducts.map((product) => (
-          <Link key={product.id} href={`/products/${product.id}`}>
-            <Product product={product} />
-          </Link>
-        ))}
-      </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-4 p-4">
+          {filteredProducts.map((product) => (
+            <Link key={product.id} href={`/products/${product.id}`}>
+              <Product product={product} />
+            </Link>
+          ))}
+        </div>
       </div>
     </>
   );

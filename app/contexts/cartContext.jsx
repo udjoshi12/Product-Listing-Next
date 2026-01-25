@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useReducer } from "react";
-
+import toast from "react-hot-toast";
 const CartContext = createContext(null);
 
 function cartReducer(state, action) {
@@ -76,13 +76,19 @@ export function CartProvider({ children }) {
     localStorage.setItem("cart", JSON.stringify(state.items));
   }, [state.items]);
 
-  const addToCart = (product) =>
+  const addToCart = (product) => {
+    toast.success("Item added to cart!");
     dispatch({ type: "ADD_TO_CART", payload: product });
+  }
 
-  const removeFromCart = (id) =>
+  const removeFromCart = (id) => {
+    toast.success("Item removed from cart!");
     dispatch({ type: "REMOVE_FROM_CART", payload: id });
+  }
 
-  const clearCart = () => dispatch({ type: "CLEAR_CART" });
+  const clearCart = () => {
+    toast.success("Cart cleared!");
+    dispatch({ type: "CLEAR_CART" });}
 
   return (
     <CartContext.Provider
